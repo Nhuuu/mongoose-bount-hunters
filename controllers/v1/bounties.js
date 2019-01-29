@@ -43,6 +43,21 @@ router.get('/:id', (req, res) => {
 	})
 });
 
+// If using something other than id, use findOneAndUpdate, just in case there are multiple
+router.put('/:id', (req, res) => {
+	req.body.hunters = JSON.parse(req.body.hunters);
+	db.Bounty.findOneAndUpdate({ _id: req.params.id }, req.body, { new: true })
+	.then(editedBounty => {
+		res.send(editedBounty)
+	})
+	.catch(err => {
+		console.log(err);
+		res.status(500).send({ message: 'Server Error' });
+	})
+})
+
+
+
 router.delete('/:id', (req, res) => {
 	db.Bounty.findOneAndDelete({ _id: req.params.id })
 	.then(() => {
