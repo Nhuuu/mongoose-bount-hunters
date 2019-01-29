@@ -1,11 +1,12 @@
 // Require modules
+const cors = require('cors');
 const express = require('express');
-const mongoose = require('mongoose');
 
 // Express instance
 const app = express();
 
 // Set up middleware
+app.use(cors());
 // Body parser in express, instead of bodyParser.urlencoded....
 app.use(express.urlencoded({ extended: false }));
 
